@@ -1,3 +1,4 @@
+from base64 import encode
 import requests as req
 import re
 import json
@@ -19,19 +20,19 @@ for line in data.splitlines():
         
         match = re.match("(.+); (.+) # (.+) (E[0-9]+.[0-9]+) (.+)", line)
         e = {
-                'emoji': match.group(3),
-                'desc': match.group(5),
+                'emoji': match.group(3).strip(),
+                'description': match.group(5).strip(),
                 'group': group,
                 'subgroup': subgroup,
-                'code': match.group(1),
-                'status': match.group(2),
-                'version': match.group(4),
+                'code': match.group(1).strip(),
+                'status': match.group(2).strip(),
+                'version': match.group(4).strip(),
             }
         emojiDict.append(e)
 
 try:
     fp = open("emoji.json", 'w')
-    json.dump(emojiDict,fp)
+    json.dump(emojiDict,fp,ensure_ascii=False,indent=4)
 except e:
     print(e)
         

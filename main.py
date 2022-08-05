@@ -21,45 +21,55 @@ async def root(
     fp = open("emoji.json", "r")
     data = json.load(fp)
     emoji = []
-    i=0
+
     groups = group.split(',')
-    print(groups)
-    index = -1
-    while i<n:
+    subgroups = subgroup.split(',')
+    
+    indexlist = []
+
+
+    while len(emoji)<n:
+
+
+        if len(data) == 0:
+            break
+
             
+        
         index = int(random.random()*(len(data) - 1))
 
         print (index)
-        
-        if data[index].get("status")!="fully-qualified" and allstatus==False:    
+
+        if data[index].get("status")!="fully-qualified" and allstatus==False:
+            data.pop(index)    
             continue
 
-        if len(groups) != 0:
+        if len(group) != 0:
             eligible = False
             for g in groups:
                 print(data[index].get("group") )
                 print(g)
-                if data[index].get("group") == g:
-                    
+                if str(data[index].get("group")).lower() == str(g.lower()).replace("-"," ").replace("and","&"):
                     eligible = True
                     print (data[index])
             
             if not eligible:
+                data.pop(index)    
                 continue
 
         if len(subgroup) != 0:
             eligible = False
-            for s in subgroup:
-                if data[index].get("group") == s:
+            for s in subgroups:
+                if data[index].get("subgroup") == s:
                     eligible = True
             
             if not eligible:
+                data.pop(index)    
                 continue
         
 
 
         emoji.append(data[index])
-        i+=1
 
     
     return emoji

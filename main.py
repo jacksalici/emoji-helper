@@ -4,6 +4,13 @@ import json
 
 app = FastAPI()
 
+def isEligible(list, list_name):
+    eligible = False
+    for element in list:
+        if str(list_name).lower() == str(element.lower()).replace("-"," ").replace("and","&"):
+            eligible = True
+    return eligible
+
 @app.get("/")
 async def root():
     fp = open("emoji.json", "r")
@@ -16,58 +23,45 @@ async def root(
     allstatus: bool = False,
     group: str = "", 
     subgroup: str = "", 
-    excludegroup: str = "",
+    nogroup: str = "",
+    nosubgroup: str = "",
     ):
     fp = open("emoji.json", "r")
     data = json.load(fp)
     emoji = []
 
-    groups = group.split(',')
-    subgroups = subgroup.split(',')
     
-    indexlist = []
-
 
     while len(emoji)<n:
-
 
         if len(data) == 0:
             break
 
-            
-        
         index = int(random.random()*(len(data) - 1))
-
-        print (index)
 
         if data[index].get("status")!="fully-qualified" and allstatus==False:
             data.pop(index)    
             continue
 
         if len(group) != 0:
-            eligible = False
-            for g in groups:
-                print(data[index].get("group") )
-                print(g)
-                if str(data[index].get("group")).lower() == str(g.lower()).replace("-"," ").replace("and","&"):
-                    eligible = True
-                    print (data[index])
-            
-            if not eligible:
+            if not isEligible(group.split(','), data[index].get("group")):
                 data.pop(index)    
                 continue
 
         if len(subgroup) != 0:
-            eligible = False
-            for s in subgroups:
-                if data[index].get("subgroup") == s:
-                    eligible = True
-            
-            if not eligible:
+            if not isEligible(subgroup.split(','), data[index].get("subgroup")):
                 data.pop(index)    
                 continue
         
-
+        if len(nogroup) != 0:
+            if isEligible(nogroup.split(','), data[index].get("group")):
+                data.pop(index)    
+                continue
+        
+        if len(nosubgroup) != 0:
+            if isEligible(nosubgroup.split(','), data[index].get("subgroup")):
+                data.pop(index)    
+                continue
 
         emoji.append(data[index])
 

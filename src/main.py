@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import random
 import json
-
+import requests as req
 app = FastAPI()
 
 def isEligible(list, list_name):
@@ -10,12 +10,13 @@ def isEligible(list, list_name):
         if str(list_name).lower() == str(element.lower()).replace("-"," ").replace("and","&"):
             eligible = True
     return eligible
+def jopen():
+    r = req.get('https://raw.githubusercontent.com/jacksalici/emoji-list-api/main/emoji.json')
+    return json.loads(r.text)
 
 @app.get("/")
 async def root():
-    fp = open("emoji.json", "r")
-
-    return json.load(fp)
+    return jopen()
 
 @app.get("/random")
 async def root(
@@ -28,8 +29,8 @@ async def root(
     nosubgroup: str = "",
     ):
 
-    fp = open("emoji.json", "r")
-    data = json.load(fp)
+    
+    data = jopen()
     emoji = []
 
     

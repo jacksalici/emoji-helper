@@ -21,11 +21,13 @@ async def root():
 async def root(
     n: int = 1,
     allstatus: bool = False,
+    noduplicates: bool = True,
     group: str = "", 
     subgroup: str = "", 
     nogroup: str = "",
     nosubgroup: str = "",
     ):
+
     fp = open("emoji.json", "r")
     data = json.load(fp)
     emoji = []
@@ -38,6 +40,10 @@ async def root(
             break
 
         index = int(random.random()*(len(data) - 1))
+
+        if data[index] in emoji and noduplicates:
+            data.pop(index)    
+            continue
 
         if data[index].get("status")!="fully-qualified" and allstatus==False:
             data.pop(index)    

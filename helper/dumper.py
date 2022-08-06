@@ -31,7 +31,7 @@ for line in data.splitlines():
         emojiDict.append(e)
 
 try:
-    fp = open("emoji.json", 'w')
+    fp = open("src/emoji.json", 'w')
     json.dump(emojiDict,fp,ensure_ascii=False,indent=4)
 except e:
     print(e)

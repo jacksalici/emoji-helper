@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 import random
 import json
 import requests as req
@@ -12,6 +12,14 @@ def isIn(list, list_name):
             isIn = True
     return isIn
 
+def returnHelper(emoji, verbose):
+    if not verbose:
+        e = []
+        for el in emoji:
+            e.append(el.get("emoji"))
+        return e
+    return emoji
+
 
 def jsonOpener():
     # r = req.get('https://raw.githubusercontent.com/jacksalici/emoji-list-api/main/emoji.json')
@@ -20,7 +28,7 @@ def jsonOpener():
     return json.load(fp)
 
 
-def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup):
+def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
 
     if element in emoji and noduplicates:
         return False
@@ -48,14 +56,46 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
     if len(nosubgroup) != 0:
         if isIn(nosubgroup.split(','), element.get("subgroup")):
             return False
+
+    if len(search) != 0:
+
+        if search not in str(element.get("description")):
+            return False
     
     return True
 
 
 
 @app.get("/")
-async def root():
-    return jsonOpener()
+async def root(
+    n: int = 0,
+    allstatus: bool = False,
+    noduplicates: bool = True,
+    group: str = "", 
+    subgroup: str = "", 
+    nogroup: str = "",
+    nosubgroup: str = "",
+    skintones: bool = False,
+    v: bool = False,
+    search: str = "",
+    ):
+
+    
+    data = jsonOpener()
+    emoji = []
+
+    for elem in data:
+
+        if n != 0 and len(emoji)==n:
+            break
+
+        if not isEligible(elem, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
+            continue
+
+        emoji.append(elem)
+
+    
+    return returnHelper(emoji, v)
 
 @app.get("/random")
 async def root(
@@ -67,6 +107,8 @@ async def root(
     nogroup: str = "",
     nosubgroup: str = "",
     skintones: bool = True,
+    v: bool = False,
+    search: str = "",
     ):
 
     
@@ -82,11 +124,11 @@ async def root(
 
         index = int(random.random()*(len(data) - 1))
 
-        if not isEligible(data[index], emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup):
+        if not isEligible(data[index], emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
             data.pop(index)
             continue
 
         emoji.append(data[index])
 
     
-    return emoji
+    return returnHelper(emoji, v)

@@ -1,1 +1,1 @@
-{"id":"a7507609-b9bf-4f74-9624-9a7b7f0b5044","space":27881,"runtime":"python3.9","name":"src","path":"zq739d","project":"a0rg3e2v","account":"144798365827","region":"eu-central-1","deps":["fastapi"],"envs":null,"public":true,"log_level":"debug","cron":""}
+{"id":"a7507609-b9bf-4f74-9624-9a7b7f0b5044","space":27881,"runtime":"python3.9","name":"emoji-list-api","path":"zq739d","project":"a0rg3e2v","account":"144798365827","region":"eu-central-1","deps":["fastapi","requests"],"envs":null,"public":true,"log_level":"debug","cron":""}

@@ -11,4 +11,4 @@ for elem in data:
     if elem.get("subgroup") not in groups[elem.get("group")]:
         test = groups[elem.get("group")].append(str(elem.get("subgroup")))
 
-print(json.dumps(groups, indent=4))
+print(json.dumps(groups))

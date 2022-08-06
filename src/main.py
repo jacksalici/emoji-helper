@@ -132,3 +132,19 @@ async def root(
 
     
     return returnHelper(emoji, v)
+
+
+@app.get("/groups")
+async def root():
+    data = jsonOpener()
+    groups={}
+
+    for elem in data:
+        if elem.get("group") not in [groups.keys]:
+            groups[elem.get("group")] = []
+
+    for elem in data:
+        if elem.get("subgroup") not in groups[elem.get("group")]:
+            test = groups[elem.get("group")].append(str(elem.get("subgroup")))
+
+    return groups

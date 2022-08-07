@@ -71,7 +71,11 @@ Usable in the query parameters. Multi word terms must be formatted in kebab-case
     "Symbols": ["transport-sign", "warning", "arrow", "religion", "zodiac", "av-symbol", "gender", "math", "punctuation", "currency", "other-symbol", "keycap", "alphanum", "geometric"],
     "Flags": ["flag", "country-flag", "subdivision-flag"]}
 ```
-
+## Local testing
+Clone the repo and install the requirements. Then run the local server using:
+```bash
+uvicorn main:app --reload  
+```
 ## Licence and contributing
 The code is released under MIT Licence.
 Feel free to open issues and PRs and suggest new ideas.

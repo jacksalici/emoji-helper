@@ -35,7 +35,9 @@ Valid for both `/` and `/random` routes.
 |`nosubgroup: str` |  Subgroups of emoji not allowed* | `""` (all subgroups are allowed)
 |`skintones: bool` | Skintones where present. | `False` for `/` route, `True` for `/random` route
 |`v: bool` | If the request is verbose, a dictionary is retrieved. | `False`
-|`search: str = ""` | Filter by search terms. | `""` (no filter is applied)
+|`search: str` | Filter by search terms. | `""` (no filter is applied)
+|`maxversion: float` | Max version of the emoji | `14.0`
+
 
 *concatenate more terms with `,`. The terms must be written in kebab-case, "&" become "and". See below for the list of groups and subgroups
 

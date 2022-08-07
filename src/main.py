@@ -39,7 +39,7 @@ def jsonOpener():
     return json.load(fp)
 
 
-def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
+def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
 
     if element in emoji and noduplicates:
         return False
@@ -72,6 +72,9 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
 
         if search not in str(element.get("description")):
             return False
+
+    if float(element.get("version").split("E")[1]) > maxversion:
+        return False
     
     return True
 
@@ -89,6 +92,7 @@ async def root(
     skintones: bool = False,
     v: bool = False,
     search: str = "",
+    maxversion: float = 14.0
     ):
 
     
@@ -100,7 +104,7 @@ async def root(
         if n != 0 and len(emoji)==n:
             break
 
-        if not isEligible(elem, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
+        if not isEligible(elem, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
             continue
 
         emoji.append(elem)
@@ -120,6 +124,8 @@ async def root(
     skintones: bool = True,
     v: bool = False,
     search: str = "",
+    maxversion: int = 14.0
+
     ):
 
     
@@ -135,7 +141,7 @@ async def root(
 
         index = int(random.random()*(len(data) - 1))
 
-        if not isEligible(data[index], emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search):
+        if not isEligible(data[index], emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
             data.pop(index)
             continue
 

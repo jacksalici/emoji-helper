@@ -72,3 +72,8 @@ Usable in the query parameters. Multi word terms must be formatted in kebab-case
     "Flags": ["flag", "country-flag", "subdivision-flag"]}
 ```
 
+## Licence and contributing
+The code is released under MIT Licence.
+Feel free to open issues and PRs and suggest new ideas.
+Please star 🌟 the repo if you find it useful!
+

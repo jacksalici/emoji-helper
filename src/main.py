@@ -2,8 +2,19 @@ from fastapi import FastAPI, Response
 import random
 import json
 import requests as req
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
 
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def isIn(list, list_name):
     isIn = False

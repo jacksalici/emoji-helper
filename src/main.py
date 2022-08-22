@@ -16,12 +16,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def isIn(list, list_name):
     isIn = False
     for element in list:
         if str(list_name).lower() == str(element.lower()).replace("-", " ").replace("and", "&"):
             isIn = True
     return isIn
+
 
 def returnHelper(emoji, verbose):
     if not verbose:
@@ -47,7 +49,7 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
     if not skintones and "skin tone" in str(element.get("description")):
         return False
 
-    if element.get("status")!="fully-qualified" and allstatus==False:
+    if element.get("status") != "fully-qualified" and allstatus == False:
         return False
 
     if len(group) != 0:
@@ -58,12 +60,10 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
         if not isIn(subgroup.split(','), element.get("subgroup")):
             return False
 
-        
     if len(nogroup) != 0:
         if isIn(nogroup.split(','), element.get("group")):
             return False
 
-        
     if len(nosubgroup) != 0:
         if isIn(nosubgroup.split(','), element.get("subgroup")):
             return False
@@ -75,9 +75,8 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
 
     if float(element.get("version").split("E")[1]) > maxversion:
         return False
-    
-    return True
 
+    return True
 
 
 @app.get("/")
@@ -85,23 +84,22 @@ async def root(
     n: int = 0,
     allstatus: bool = False,
     noduplicates: bool = True,
-    group: str = "", 
-    subgroup: str = "", 
+    group: str = "",
+    subgroup: str = "",
     nogroup: str = "",
     nosubgroup: str = "",
     skintones: bool = False,
     v: bool = False,
     search: str = "",
     maxversion: float = 14.0
-    ):
+):
 
-    
     data = jsonOpener()
     emoji = []
 
     for elem in data:
 
-        if n != 0 and len(emoji)==n:
+        if n != 0 and len(emoji) == n:
             break
 
         if not isEligible(elem, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
@@ -109,16 +107,16 @@ async def root(
 
         emoji.append(elem)
 
-    
     return returnHelper(emoji, v)
+
 
 @app.get("/random")
 async def root(
     n: int = 1,
     allstatus: bool = False,
     noduplicates: bool = True,
-    group: str = "", 
-    subgroup: str = "", 
+    group: str = "",
+    subgroup: str = "",
     nogroup: str = "",
     nosubgroup: str = "",
     skintones: bool = True,
@@ -126,15 +124,12 @@ async def root(
     search: str = "",
     maxversion: int = 14.0
 
-    ):
+):
 
-    
     data = jsonOpener()
     emoji = []
 
-    
-
-    while len(emoji)<n:
+    while len(emoji) < n:
 
         if len(data) == 0:
             break
@@ -147,14 +142,13 @@ async def root(
 
         emoji.append(data[index])
 
-    
     return returnHelper(emoji, v)
 
 
 @app.get("/groups")
 async def root():
     data = jsonOpener()
-    groups={}
+    groups = {}
 
     for elem in data:
         if elem.get("group") not in [groups.keys]:

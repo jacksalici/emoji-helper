@@ -1,7 +1,7 @@
 {
   "name": "emoji-random-list",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.1.1",
+  "description": "Simple yet powerful npm package for querying emoji. 😁",
   "main": "index.js",
   "scripts": {
     "test": "./test.js"
@@ -13,6 +13,9 @@
   ],
   "author": "Jack Salici (https://jacksalici.com)",
   "license": "ISC",
-  "homepage": "https://github.com/jacksalici/emoji-helper"
-
+  "homepage": "https://github.com/jacksalici/emoji-helper/tree/main/npm-packager",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jacksalici/emoji-helper"
+  }
 }

@@ -24,14 +24,14 @@ Valid for both `list` and `random` functions.
 
 |Parameter: type |Description | Default value |
 |-|-|-|
-|`n: int`| Number of emoji to retrieve | `1` for `random` function, `0` (means all) for `/` function
+|`n: int`| Number of emoji to retrieve | `1` for `random` function, `0` (means all) for `list` function
 |`allstatus: bool`| By default only emoji with status "fully-qualified" are retrieved. | `false`
 |`noduplicates: bool`| In the retrieved list no duplicates are allowed by default. This means that the n value must be considered as a massimum value. | `true`
 |`group: string`| Groups of emoji allowed*| `""` (all groups are allowed)
 |`subgroup: string` | Subgroups of emoji allowed* | `""` (all subgroups are allowed)
 |`nogroup: string` | Groups of emoji not allowed* | `""` (all groups are allowed)
 |`nosubgroup: string` |  Subgroups of emoji not allowed* | `""` (all subgroups are allowed)
-|`skintones: bool` | Skintones where present. | `false` for `/` function, `true` for `/random` function
+|`skintones: bool` | Skintones where present. | `false` for `list` function, `true` for `listrandom` function
 |`v: bool` | If the request is verbose, a dictionary is retrieved. | `false`
 |`search: string` | Filter by search terms. | `""` (no filter is applied)
 |`maxversion: number` | Max version of the emoji | `14.0`
@@ -44,7 +44,7 @@ Valid for both `list` and `random` functions.
 ## Data Source
 The data is parsed from https://unicode.org/Public/emoji/15.0/emoji-test.txt into a JSON list of dictionaries from which the emoji are retrieved. The list, created with the `helper/dumper.py` script, is updated with the very version of Unicode emoji.
 Each dictionary presents several information reguarding an emoji, and can be retrieved using the verbose `v=true` parameter. An example is reported.
-The file [emoji.json](https://raw.githubusercontent.com/jacksalici/emoji-list-api/main/src/emoji.json) can be also used for new API.
+The file [emoji.json](https://raw.githubusercontent.com/jacksalici/emoji-helper/main/helper/emoji.json) can be also used for new API.
 
 ```json
  {

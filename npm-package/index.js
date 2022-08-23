@@ -48,7 +48,7 @@ function isEligible(
   if (!skintones && String(element["description"]).includes("skin tone"))
     return false;
 
-  if (!genders && String(element["description"]).includes("man") && String(element["group"]) == "People & Body")
+  if (!genders && (String(element["description"]).includes("man")|| String(element["description"]).includes("man")) && String(element["group"]) == "People & Body")
     return false;
 
   if (element["status"] != "fully-qualified" && allstatus == false)

@@ -3,13 +3,14 @@ data = require("./emoji.json");
 module.exports.list = list;
 module.exports.random = random;
 module.exports.len = data.length;
+module.exports.calc = calc;
 
 function isInFun(list, list_name) {
   isIn = false;
   list.forEach((element) => {
     if (
       String(list_name).toLowerCase() ==
-      String(element.toLowerCase()).replace("-", " ").replace("and", "&")
+      String(element.toLowerCase()).replace(/-/gm, " ").replace(/and/gm, "&")
     ) {
       isIn = true;
     }
@@ -87,18 +88,16 @@ function list(
   search = "",
   maxversion = 14.0,
   genders = false,
-  offset = 0}
+  offset = 0} = {}
 ) {
   emoji = [];
-
+  var count = 0
   for (elem of data) {
     
 
     if (n != 0 && emoji.length == n) break;
 
-    if (data.indexOf(elem) < offset) {
-      continue;
-    }
+    
 
 
     if (
@@ -119,6 +118,12 @@ function list(
     )
       continue;
 
+    count++;
+
+    if (count <= offset) {
+      continue;
+    }
+
     emoji.push(elem);
   }
 
@@ -138,7 +143,7 @@ function random(
   search = "",
   maxversion = 13.0,
   genders = false,
-}
+} = {}
 ) {
   emoji = [];
 
@@ -171,4 +176,50 @@ function random(
   }
 
   return returnHelper(emoji, v);
+}
+
+
+
+function calc(
+  {
+  allstatus = false,
+  noduplicates = true,
+  group = "",
+  subgroup = "",
+  nogroup = "",
+  nosubgroup = "",
+  skintones = false,
+  search = "",
+  maxversion = 14.0,
+  genders = false,
+  } = {}
+) {
+  var count = 0
+  for (elem of data) {
+    
+
+
+   
+
+
+    if (
+      isEligible(
+        elem,
+        [],
+        noduplicates,
+        skintones,
+        allstatus,
+        group,
+        subgroup,
+        nogroup,
+        nosubgroup,
+        search,
+        maxversion,
+        genders
+      )
+    )
+      count++;
+
+  }
+  return count
 }

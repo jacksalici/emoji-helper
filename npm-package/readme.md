@@ -39,7 +39,7 @@ Valid for both `list` and `random` functions.
 |`offset: number` | Offset between the first emoji and the start of the return list. (avaible only for the `list` function)  | `0`
 
 
-*concatenate more terms with `,`. The terms must be written in kebab-case, "&" become "and". See below for the list of groups and subgroups
+*concatenate more terms with `,`. See below for the list of groups and subgroups
 
 ## Data Source
 The data is parsed from https://unicode.org/Public/emoji/15.0/emoji-test.txt into a JSON list of dictionaries from which the emoji are retrieved. The list, created with the `helper/dumper.py` script, is updated with the very version of Unicode emoji.
@@ -71,7 +71,8 @@ Usable in the query parameters. Multi word terms must be formatted in kebab-case
     "Activities": ["event", "award-medal", "sport", "game", "arts & crafts"],
     "Objects": ["clothing", "sound", "music", "musical-instrument", "phone", "computer", "light & video", "book-paper", "money", "mail", "writing", "office", "lock", "tool", "science", "medical", "household", "other-object"], 
     "Symbols": ["transport-sign", "warning", "arrow", "religion", "zodiac", "av-symbol", "gender", "math", "punctuation", "currency", "other-symbol", "keycap", "alphanum", "geometric"],
-    "Flags": ["flag", "country-flag", "subdivision-flag"]}
+    "Flags": ["flag", "country-flag", "subdivision-flag"]
+    }
 ```
 
 ## Licence and contributing

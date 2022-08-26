@@ -1,3 +1,3 @@
 var emoji = require("./index.js")
-var offset=Math.random()*emoji.len
-console.log(emoji.list({n: 10, offset: Math.floor(offset)}))
+console.log(emoji.calc({group: 'food-and-drink'}))
+console.log(emoji.list({group: 'food-and-drink', offset: 3}))

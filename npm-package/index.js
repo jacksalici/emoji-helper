@@ -49,7 +49,12 @@ function isEligible(
   if (!skintones && String(element["description"]).includes("skin tone"))
     return false;
 
-  if (!genders && (String(element["description"]).includes("men")|| String(element["description"]).includes("man")) && String(element["group"]) == "People & Body")
+  if (
+    !genders &&
+    (String(element["description"]).includes("men") ||
+      String(element["description"]).includes("man")) &&
+    String(element["group"]) == "People & Body"
+  )
     return false;
 
   if (element["status"] != "fully-qualified" && allstatus == false)
@@ -75,8 +80,8 @@ function isEligible(
   return true;
 }
 
-function list(
-  {n = 0,
+function list({
+  n = 0,
   allstatus = false,
   noduplicates = true,
   group = "",
@@ -88,17 +93,12 @@ function list(
   search = "",
   maxversion = 14.0,
   genders = false,
-  offset = 0} = {}
-) {
+  offset = 0,
+} = {}) {
   emoji = [];
-  var count = 0
+  var count = 0;
   for (elem of data) {
-    
-
     if (n != 0 && emoji.length == n) break;
-
-    
-
 
     if (
       !isEligible(
@@ -130,8 +130,8 @@ function list(
   return returnHelper(emoji, v);
 }
 
-function random(
-  {n = 1,
+function random({
+  n = 1,
   allstatus = false,
   noduplicates = true,
   group = "",
@@ -143,8 +143,7 @@ function random(
   search = "",
   maxversion = 13.0,
   genders = false,
-} = {}
-) {
+} = {}) {
   emoji = [];
 
   while (emoji.length < n) {
@@ -178,10 +177,7 @@ function random(
   return returnHelper(emoji, v);
 }
 
-
-
-function calc(
-  {
+function calc({
   allstatus = false,
   noduplicates = true,
   group = "",
@@ -192,16 +188,9 @@ function calc(
   search = "",
   maxversion = 14.0,
   genders = false,
-  } = {}
-) {
-  var count = 0
+} = {}) {
+  var count = 0;
   for (elem of data) {
-    
-
-
-   
-
-
     if (
       isEligible(
         elem,
@@ -219,7 +208,6 @@ function calc(
       )
     )
       count++;
-
   }
-  return count
+  return count;
 }

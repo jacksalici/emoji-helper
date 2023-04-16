@@ -21,10 +21,11 @@ console.log(emoji.random({n: 5, group: 'objects'}))
 import requests
 import json
 
-data=requests.get('https://emoji.deta.dev/random?n=10&skintones=False&nogroup=Symbols,Flags')
+data=requests.get('https://emojihelper-1-v4897410.deta.app/random?n=10&skintones=False&nogroup=Symbols,Flags')
 print(json.loads(data.text))
  
 # ["☔","🤵‍♀️","🤍","🗿","🎥","👴","🏃","🥄","🧃","✌️"]
 ```
 
 #### [Go to the docs 🐍🗂](https://github.com/jacksalici/emoji-helper/tree/main/python-api)
+

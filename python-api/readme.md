@@ -5,7 +5,7 @@ Simple yet powerful RESTful API for querying emoji.
 import requests
 import json
 
-data=requests.get('https://emoji.deta.dev/random?n=10&skintones=False&nogroup=Symbols,Flags')
+data=requests.get('https://emojihelper-1-v4897410.deta.app/random?n=10&skintones=False&nogroup=Symbols,Flags')
 print(json.loads(data.text))
  
 # ["☔","🤵‍♀️","🤍","🗿","🎥","👴","🏃","🥄","🧃","✌️"]

@@ -20,7 +20,8 @@ app.add_middleware(
 def isIn(list, list_name):
     isIn = False
     for element in list:
-        if str(list_name).lower() == str(element.lower()).replace("-", " ").replace("and", "&"):
+        if str(list_name).lower() == str(element.lower()).replace(
+                "-", " ").replace("and", "&"):
             isIn = True
     return isIn
 
@@ -41,7 +42,8 @@ def jsonOpener():
     return json.load(fp)
 
 
-def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
+def isEligible(element, emoji, noduplicates, skintones, allstatus, group,
+               subgroup, nogroup, nosubgroup, search, maxversion):
 
     if element in emoji and noduplicates:
         return False
@@ -80,19 +82,17 @@ def isEligible(element, emoji, noduplicates, skintones, allstatus, group, subgro
 
 
 @app.get("/")
-async def root(
-    n: int = 0,
-    allstatus: bool = False,
-    noduplicates: bool = True,
-    group: str = "",
-    subgroup: str = "",
-    nogroup: str = "",
-    nosubgroup: str = "",
-    skintones: bool = False,
-    v: bool = False,
-    search: str = "",
-    maxversion: float = 14.0
-):
+async def root(n: int = 0,
+               allstatus: bool = False,
+               noduplicates: bool = True,
+               group: str = "",
+               subgroup: str = "",
+               nogroup: str = "",
+               nosubgroup: str = "",
+               skintones: bool = False,
+               v: bool = False,
+               search: str = "",
+               maxversion: float = 14.0):
 
     data = jsonOpener()
     emoji = []
@@ -102,7 +102,9 @@ async def root(
         if n != 0 and len(emoji) == n:
             break
 
-        if not isEligible(elem, emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
+        if not isEligible(elem, emoji, noduplicates, skintones, allstatus,
+                          group, subgroup, nogroup, nosubgroup, search,
+                          maxversion):
             continue
 
         emoji.append(elem)
@@ -111,20 +113,17 @@ async def root(
 
 
 @app.get("/random")
-async def root(
-    n: int = 1,
-    allstatus: bool = False,
-    noduplicates: bool = True,
-    group: str = "",
-    subgroup: str = "",
-    nogroup: str = "",
-    nosubgroup: str = "",
-    skintones: bool = True,
-    v: bool = False,
-    search: str = "",
-    maxversion: int = 14.0
-
-):
+async def root(n: int = 1,
+               allstatus: bool = False,
+               noduplicates: bool = True,
+               group: str = "",
+               subgroup: str = "",
+               nogroup: str = "",
+               nosubgroup: str = "",
+               skintones: bool = True,
+               v: bool = False,
+               search: str = "",
+               maxversion: int = 14.0):
 
     data = jsonOpener()
     emoji = []
@@ -134,9 +133,11 @@ async def root(
         if len(data) == 0:
             break
 
-        index = int(random.random()*(len(data) - 1))
+        index = int(random.random() * (len(data) - 1))
 
-        if not isEligible(data[index], emoji, noduplicates, skintones, allstatus, group, subgroup, nogroup, nosubgroup, search, maxversion):
+        if not isEligible(data[index], emoji, noduplicates, skintones,
+                          allstatus, group, subgroup, nogroup, nosubgroup,
+                          search, maxversion):
             data.pop(index)
             continue
 
